@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AQUA SLOVIC AI</title>
+    <!-- Google Fonts for a futuristic look -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="cyber-header">
+            <div class="logo-container">
+                <img src="./logo.jpeg" alt="Aqua Slovic Logo" class="logo-img" onerror="this.src='https://via.placeholder.com/50?text=AS'">
+                <div class="title-container">
+                    <h1>AQUA SLOVIC AI</h1>
+                    <span class="status-indicator"><div class="pulse-dot"></div> <span id="modelIndicator" style="margin-left: 5px; opacity: 0.8; font-size: 0.8em;">(SYSTEM ONLINE)</span></span>
+                </div>
+            </div>
+            <button id="settingsBtn" class="icon-btn" title="Settings"><i class="fas fa-cog"></i></button>
+        </header>
+
+        <!-- Main Chat Area -->
+        <main class="chat-container" id="chatContainer">
+            <div class="welcome-screen" id="welcomeScreen">
+                <div class="large-avatar">
+                   <img src="./logo.jpeg" alt="AI Avatar" onerror="this.src='https://via.placeholder.com/150?text=AI'">
+                </div>
+                <h2>AQUA SLOVIC AI READY</h2>
+                <p>Welcome to AQUA SLOVIC AI. Ask me about school, coding, ethical hacking, or try sending a voice note!</p>
+            </div>
+            <!-- Messages will be appended here -->
+        </main>
+
+        <!-- Input Area -->
+        <footer class="input-area">
+            <form id="chatForm" class="message-form">
+                <input type="text" id="messageInput" placeholder="write message..." autocomplete="off" />
+                <!-- File Upload -->
+                <label for="fileUpload" class="action-btn file-btn" title="Upload File or Image"><i class="fas fa-paperclip"></i></label>
+                <input type="file" id="fileUpload" hidden accept="image/*,.pdf,.txt,.csv,.md,.html,.xml,.json" />
+
+                <!-- Voice Actions -->
+                <button type="button" id="voiceBtn" class="action-btn voice-btn" title="Live Voice Chat"><i class="fas fa-microphone"></i></button>
+                <button type="button" id="voiceNoteBtn" class="action-btn vn-btn" title="Send Voice Note (Hold to Record)"><i class="fas fa-record-vinyl"></i></button>
+                
+                <button type="submit" id="sendBtn" class="action-btn send-btn" title="Send Message"><i class="fas fa-paper-plane"></i></button>
+            </form>
+            <div class="voice-status" id="voiceStatus">Listening...</div>
+            <div class="voice-status" id="vnStatus" style="color: #ff3366;">Recording Voice Note...</div>
+            <div id="filePreview" class="file-preview" style="display: none; padding: 5px 15px; color: var(--primary-color); font-size: 0.85rem; border-top: 1px solid var(--primary-glow); background: rgba(0,243,255,0.05);">
+                <i class="fas fa-file"></i> <span id="fileName"></span> 
+                <i class="fas fa-times" id="clearFileBtn" style="cursor:pointer; margin-left:10px;" title="Remove File"></i>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content cyber-panel">
+            <span class="close-btn" id="closeSettings">&times;</span>
+            <h2>SYSTEM CONFIGURATION</h2>
+            
+            <div class="settings-group" style="display: none;">
+                <!-- Model select removed from UI as per request -->
+                <select id="modelSelect" class="cyber-select">
+                    <option value="fast" selected>Fast (Responsive, Default)</option>
+                </select>
+            </div>
+
+            <div class="settings-group">
+                <h3><i class="fas fa-volume-up"></i> Voice Settings</h3>
+                <label for="voiceSelect">Select AI Voice:</label>
+                <select id="voiceSelect" class="cyber-select">
+                    <!-- Options populated by JS -->
+                </select>
+                <button id="initVoiceBtn" class="cyber-button-small">Initiate Voice Engine</button>
+            </div>
+
+            <div class="settings-group">
+                <h3><i class="fas fa-palette"></i> Appearance</h3>
+                <label for="themeColor">Primary Theme Color:</label>
+                <input type="color" id="themeColor" value="#00f3ff">
+                <button id="resetThemeBtn" class="cyber-button-small">Reset Theme</button>
+            </div>
+
+            <div class="settings-group about-section">
+                <h3><i class="fas fa-info-circle"></i> About AQUA SLOVIC</h3>
+                <p><strong>Creator:</strong> Wisdom Malata</p>
+                <p><strong>Website:</strong> <a href="https://wisdom-malata.vercel.app" target="_blank">wisdom-malata.vercel.app</a></p>
+                <p><strong>Version:</strong> v2.0.0 (Pro Edition)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script imports -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script> <!-- Markdown parser -->
+    <script src="script.js"></script>
+</body>
+</html>
