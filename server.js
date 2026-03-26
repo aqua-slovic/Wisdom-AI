@@ -9,10 +9,12 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Multer setup for temporarily storing uploaded audio files
+// Ensure uploads directory exists (needed on fresh Render deployments)
+if (!fs.existsSync('uploads')) fs.mkdirSync('uploads');
 const upload = multer({ dest: 'uploads/' });
 
-// API Key (For production, use environment variables)
-const API_KEY = "AIzaSyAP5L_LQNimIsyw8vC47K-KWCjz21xOXpI";
+// API Key - set GEMINI_API_KEY environment variable in Render dashboard
+const API_KEY = process.env.GEMINI_API_KEY || "AIzaSyAP5L_LQNimIsyw8vC47K-KWCjz21xOXpI";
 
 // Models
 const FAST_MODEL = 'gemini-2.5-flash';
