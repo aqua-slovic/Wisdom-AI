@@ -4,14 +4,14 @@ const fetch = require('node-fetch');
 const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Multer setup for temporarily storing uploaded audio files
-// Ensure uploads directory exists (needed on fresh Render deployments)
-if (!fs.existsSync('uploads')) fs.mkdirSync('uploads');
-const upload = multer({ dest: 'uploads/' });
+// Multer setup - use OS temp dir so it works on Vercel (read-only FS) and Windows locally
+const UPLOAD_DIR = os.tmpdir();
+const upload = multer({ dest: UPLOAD_DIR });
 
 // API Key - set GEMINI_API_KEY environment variable in Render dashboard
 const API_KEY = process.env.GEMINI_API_KEY || "AIzaSyAP5L_LQNimIsyw8vC47K-KWCjz21xOXpI";
@@ -139,6 +139,12 @@ app.post('/api/chat', upload.single('file'), async (req, res) => {
     }
 });
 
-app.listen(PORT, () => {
-    console.log(`[SYS] AQUA SLOVIC Backend running on http://localhost:${PORT}`);
-});
+// Only start the HTTP server when run directly (node server.js)
+// Vercel imports this file as a module and handles the server itself
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log(`[SYS] AQUA SLOVIC Backend running on http://localhost:${PORT}`);
+    });
+}
+
+module.exports = app;
